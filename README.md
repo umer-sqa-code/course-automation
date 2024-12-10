@@ -1,1 +1,1 @@
-Initial
+# 🚀 Hi, I'm Muhammad Umer, a passionate Software Engineer 🖥️📱 specializing in testing web and mobile applications, especially e-commerce platforms 🛍️. With hands-on expertise in tools like Selenium 🤖, Postman 📬, JMeter 🛠️, and Appium 📲, I deliver defect-free software through rigorous functional, non-functional, and regression testing 🕵️‍♂️. Leveraging Agile methodologies 🌀, I ensure smooth API validation and efficient development workflows. ✨
