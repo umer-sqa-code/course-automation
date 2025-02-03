@@ -1,1 +1,88 @@
+//This Java program automates course navigation and quiz completion on a learning platform using Selenium WebDriver with Firefox. 
+//It performs login, navigates to a course, plays a lesson, and interacts with quiz elements dynamically until completion.
+//Let's Start
+package Umer;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 
+public class Umer {
+    public static void main(String[] args) {
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\User\\Desktop\\geckodriver\\geckodriver.exe");
+
+        FirefoxOptions options = new FirefoxOptions();
+        WebDriver driver = new FirefoxDriver(options);
+
+        try {
+            driver.get("https://example.com/");
+
+            // Log in
+            driver.findElement(By.xpath("/html/body/div[1]/header[1]/div[2]/div/div/div[2]/ul/li[4]/a")).click();
+            driver.findElement(By.xpath("//*[@id=\"Login_username\"]")).sendKeys("*********");
+            driver.findElement(By.xpath("//*[@id=\"login_password\"]")).sendKeys("********");
+
+            // Wait for CAPTCHA completion
+            Thread.sleep(20000);
+
+            driver.findElement(By.xpath("//*[@id=\"login_lms\"]")).click();
+            Thread.sleep(5000);
+
+            // Navigate to course
+            driver.findElement(By.xpath("/html/body/div[1]/div/div/nav/ul/li[2]/a")).click();
+            Thread.sleep(5000);
+            driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div[3]/div[2]/div/div[2]/div/div[2]/a/button")).click();
+            Thread.sleep(5000);
+            driver.findElement(By.xpath("//*[@id=\"learndash_course_content\"]/div[1]/a/input")).click();
+            Thread.sleep(5000);
+
+            // Wait and click Play button
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement playButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#play_topic_slide")));
+            playButton.click();
+            Thread.sleep(5000);
+
+            // Wait and click Quiz button
+            WebElement quizButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"lesson-quiz\"]")));
+            quizButton.click();
+
+            // Start answering the quiz
+            while (true) {
+                try {
+                    // Click Option B
+                    WebElement optionB = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/app-root/ng-component/mat-drawer-container/mat-drawer-content/app-player-quiz/div/div/div/div[2]/div/div[1]/div/div/form/ul/li[2]")));
+                    optionB.click();
+
+                    // Click the Next button
+                    WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"next_quiz\"]"))); 
+                    nextButton.click();
+
+                    // Add a short delay to avoid overlapping actions
+                    Thread.sleep(3000);
+                    
+                } catch (TimeoutException e) {
+                  // If Next button or Option B is not found, assume the quiz is finished
+               System.out.println("Quiz completed or no more Next button available.");
+                    driver.findElement(By.xpath("//*[@id=\"finish_quiz\"]")).click();
+                    Thread.sleep(3000);
+                    driver.findElement(By.id("continue_course")).click();
+                    Thread.sleep(3000);
+                    driver.findElement(By.id("final-quiz")).click();
+                    
+                    
+                }
+            }
+
+        } catch (Exception e) {
+        	
+        	
+            e.printStackTrace();
+        } finally {
+        	 
+        	 
+           // driver.quit();
+        }
+    }
+}
