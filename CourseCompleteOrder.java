@@ -25,9 +25,9 @@ public class QA_Hazwoper {
 
             driver.findElement(By.xpath("/html/body/div[1]/header[1]/div[1]/div/div/div[2]/ul/li[4]/a")).click();
 
-            driver.findElement(By.xpath("//*[@id=\"Login_username\"]")).sendKeys("umer.sqa");
+            driver.findElement(By.xpath("//*[@id=\"Login_username\"]")).sendKeys("*******");
 
-            driver.findElement(By.xpath("//*[@id=\"login_password\"]")).sendKeys("12345678");
+            driver.findElement(By.xpath("//*[@id=\"login_password\"]")).sendKeys("******");
 
             // Wait for user interaction (e.g., CAPTCHA)
             Thread.sleep(20000);
